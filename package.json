@@ -13,15 +13,16 @@
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.4",
     "babel-preset-env": "^1.7.0",
-    "copy-webpack-plugin": "^4.5.2",
-    "uglifyjs-webpack-plugin": "^1.2.7",
-    "webpack": "^4.13.0",
-    "webpack-cli": "^3.0.8",
+    "copy-webpack-plugin": "^5.0.4",
+    "uglifyjs-webpack-plugin": "^2.2.0",
+    "webpack": "^4.39.3",
+    "webpack-cli": "^3.3.7",
     "webpack-dev-server": "^3.8.0",
     "webpack-node-externals": "^1.7.2"
   },
   "dependencies": {
-    "phaser": "^3.10.1",
+    "lodash": "^4.17.15",
+    "phaser": "^3.19.0",
     "yamljs": "^0.3.0"
   }
 }

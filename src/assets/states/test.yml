@@ -1,0 +1,44 @@
+assets:
+  makoto:
+    type: 'image'
+    src: 'assets/images/makoto.png'
+
+groups:
+  - back
+  - front
+
+prefabs:
+  factory:
+    type: 'baseFactory'
+    options:
+      mode: 'once'
+      interval: 1000
+      pool: 'back'
+
+  makoto_right:
+    type: 'baseSprite'
+    options:
+      key: 'makoto'
+      group: 'front'
+      position:
+        relative: true
+        x: 1
+        y: 1
+      anchor:
+        x: 1
+        y: 1
+
+  makoto_right2:
+    type: 'baseSprite'
+    options:
+      key: 'makoto'
+      group: 'back'
+      position:
+        relative: true
+        x: 0.9
+        y: 0.9
+      anchor:
+        x: 1
+        y: 1
+
+

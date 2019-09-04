@@ -1,0 +1,27 @@
+{
+  "name": "dasheck-phaser3-playground",
+  "version": "1.0.0",
+  "description": "This is just a playground",
+  "scripts": {
+    "build:develop": "webpack --env develop",
+    "build:production": "webpack --env production",
+    "start:develop": "webpack-dev-server --env develop"
+  },
+  "author": "Stefan Neidig",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.7.0",
+    "copy-webpack-plugin": "^4.5.2",
+    "uglifyjs-webpack-plugin": "^1.2.7",
+    "webpack": "^4.13.0",
+    "webpack-cli": "^3.0.8",
+    "webpack-dev-server": "^3.1.4",
+    "webpack-node-externals": "^1.7.2"
+  },
+  "dependencies": {
+    "phaser": "^3.10.1",
+    "yamljs": "^0.3.0"
+  }
+}

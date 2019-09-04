@@ -3,7 +3,7 @@ import baseSprite from './baseSprite';
 import baseFactory from './baseFactory';
 
 export {
-    baseImage,
-    baseSprite,
-    baseFactory
+  baseImage,
+  baseSprite,
+  baseFactory
 };

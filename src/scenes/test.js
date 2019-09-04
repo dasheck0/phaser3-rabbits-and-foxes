@@ -1,11 +1,11 @@
 import BaseScene from './base';
 
 export class TestScene extends BaseScene {
-    constructor() {
-        super('test');
-    }
+  constructor() {
+    super('test');
+  }
 
-    create() {
-        super.create();
-    }
+  create() {
+    super.create();
+  }
 }

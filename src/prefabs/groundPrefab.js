@@ -28,7 +28,7 @@ export default class Ground {
       tileHeight: globals.grid.size
     });
     const tiles = this.map.addTilesetImage('tilemap');
-    const layer = this.map.createStaticLayer(0, tiles, 0, 0);
+    const layer = this.map.createDynamicLayer(0, tiles, 0, 0);
   }
 
   getCell(x, y) {
@@ -52,7 +52,8 @@ export default class Ground {
   removeGrass(x, y) {
     if (x >= 0 && y >= 0 && x < this.options.size.x && y < this.options.size.y) {
       this.data[y][x] = 2;
-      this.redraw();
+      const tile = this.map.getTileAt(x, y);
+      this.map.putTileAt(2, x, y);
     }
   }
 
@@ -62,6 +63,7 @@ export default class Ground {
         if (cell === 2) {
           if (random(0, 1, true) < this.profile.grass.growRate) {
             this.data[y][x] = 1;
+            this.map.putTileAt(1, x, y);
           }
         }
       });
@@ -71,16 +73,6 @@ export default class Ground {
   }
 
   /* private */
-
-  redraw() {
-    this.map = this.scene.make.tilemap({
-      data: this.data,
-      tileWidth: this.globals.grid.size,
-      tileHeight: this.globals.grid.size
-    });
-    const tiles = this.map.addTilesetImage('tilemap');
-    const layer = this.map.createStaticLayer(0, tiles, 0, 0);
-  }
 
   static getGroundMapTiles() {
     const percent = random(0, 1, true);

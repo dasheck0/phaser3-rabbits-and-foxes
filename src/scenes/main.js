@@ -8,6 +8,9 @@ export class MainScene extends BaseScene {
   create() {
     super.create();
 
+    this.timeTrigger = 1000;
+    this.lastTime = 0;
+
     this.cameras.main.setBounds(
       0,
       0,
@@ -29,22 +32,21 @@ export class MainScene extends BaseScene {
       drag: 0.0005,
       maxSpeed: 0.5
     });
-
-    // var timer = this.time.addEvent({
-    //   delay: 1000,                // ms
-    //   callback: () => {console.log("go");
-    //     this.prefabs['ground'].update()
-    //   },
-    //   callbackScope: this,
-    //   repeat: 4000
-    // });
-
   }
 
   update(time, delta) {
     super.update(time, delta);
+
     this.controls.update(time);
 
-    this.prefabs.bunny.update(time, delta);
+    if (this.lastTime === 0) {
+      this.lastTime = time;
+    }
+
+    if (time - this.lastTime > this.timeTrigger * this.globals.speed) {
+      this.groups.rabbits.getChildren().forEach(child => child.update(time, delta));
+      this.lastTime = time;
+      // this.prefabs.ground.update(time, delta);
+    }
   }
 }

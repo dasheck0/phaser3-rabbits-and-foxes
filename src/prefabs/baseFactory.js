@@ -1,12 +1,16 @@
 import 'phaser';
+import { random } from 'lodash';
 
 export default class {
-  constructor(name, scene, options) {
+  constructor(name, scene, options, profile, globals) {
     this.name = name;
     this.scene = scene;
+    this.options = options;
+    this.profile = profile;
+    this.globals = globals;
     this.time = scene.time;
 
-    this.pool = options.pool;
+    this.pool = this.scene.groups[options.pool];
     this.interval = options.interval || 1000;
     this.mode = options.mode || 'infinite';
     this.limit = options.limit || -1;
@@ -19,7 +23,6 @@ export default class {
   }
 
   spawn() {
-    console.log("go")
   }
 
   /* private */
@@ -37,7 +40,18 @@ export default class {
       loop: this.mode !== 'once',
       callback: () => {
         if (this.isAllowed()) {
-          this.spawn();
+          const position = {
+            x: random(0, this.globals.grid.rowCount),
+            y: random(0, this.globals.grid.columnCount)
+          };
+          let object = this.pool.getFirstDead();
+
+          if (object) {
+            object.reset(position.x, position.y);
+          } else {
+            const name = `object_${this.pool.countActive()}`;
+            object = this.spawn(name, position);
+          }
         }
       },
       callbackScope: this

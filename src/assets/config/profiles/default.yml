@@ -1,5 +1,5 @@
 grass:
-  growRate: 0.15
+  growRate: 0.01
 
 rabbit:
   hunger:

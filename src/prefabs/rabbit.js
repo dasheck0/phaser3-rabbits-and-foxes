@@ -11,21 +11,10 @@ export default class extends BaseSprite {
     super(name, scene, options, profile, globals);
 
     this.ground = scene.prefabs['ground'];
-    this.timeTrigger = 1000;
-    this.lastTime = 0;
   }
 
   update(time) {
-    console.log("njkfd", time);
-
-    if (this.lastTime === 0) {
-      this.lastTime = time;
-    }
-
-    if (time - this.lastTime > this.timeTrigger) {
-      this.planMove();
-      this.lastTime = time;
-    }
+    this.planMove();
   }
 
   /* private */
@@ -60,6 +49,13 @@ export default class extends BaseSprite {
     return {
       x: ((position.x || this.x) - (this.globals.grid.size * this.originX)) / this.globals.grid.size,
       y: ((position.y || this.y) - (this.globals.grid.size * this.originY)) / this.globals.grid.size
+    }
+  }
+
+  gridPositionToPosition(position) {
+    return {
+      x: position.x * this.globals.grid.size + this.globals.grid.size * this.originX,
+      y: position.y * this.globals.grid.size + this.globals.grid.size * this.originY,
     }
   }
 }

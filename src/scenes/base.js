@@ -11,9 +11,11 @@ export default class BaseScene extends Phaser.Scene {
       throw new Error('There is no configFile for the scene');
     }
 
+    this.profile = YAML.load(options.profileFile);
     this.config = YAML.load(options.configFile);
-    if (!this.config) {
-      throw new Error('There is no config for the scene');
+
+    if (!this.config || !this.profile) {
+      throw new Error('There is no config or profile for the scene');
     }
   }
 
@@ -43,7 +45,7 @@ export default class BaseScene extends Phaser.Scene {
 
     Object.keys(this.config.prefabs).forEach((key) => {
       const value = this.config.prefabs[key];
-      this.prefabs[key] = new (prefabs[value.type])(key, this, value.options);
+      this.prefabs[key] = new (prefabs[value.type])(key, this, value.options, this.profile);
     });
   }
 }

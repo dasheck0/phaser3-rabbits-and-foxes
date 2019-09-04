@@ -16,4 +16,7 @@ const game = new Phaser.Game({
   scene: [MainScene]
 });
 
-game.scene.start('main', { configFile: 'assets/states/main.yml' });
+game.scene.start('main', {
+  configFile: 'assets/states/main.yml',
+  profileFile: `assets/config/profiles/${config.profile || 'default'}.yml`
+});

@@ -1,0 +1,12 @@
+grass:
+  growRate: 0.15
+
+rabbit:
+  hunger:
+    gainPerHour: 0.1
+    limit: 1
+  thirst:
+    gainPerHour: 0.1
+    limit: 1
+
+fox:

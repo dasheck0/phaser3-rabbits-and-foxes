@@ -24,6 +24,17 @@ export class MainScene extends BaseScene {
       drag: 0.0005,
       maxSpeed: 0.5
     });
+
+    console.log(this.prefabs['ground'].getCell(1,2));
+
+    var timer = this.time.addEvent({
+      delay: 1000,                // ms
+      callback: () => {console.log("go");
+        this.prefabs['ground'].update()
+      },
+      callbackScope: this,
+      repeat: 4000
+    });
   }
 
   update(delta) {

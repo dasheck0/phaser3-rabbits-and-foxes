@@ -2,6 +2,9 @@ assets:
   tilemap:
     type: 'image'
     src: 'assets/images/tilesheet.png'
+  bunny:
+    type: 'image'
+    src: 'assets/images/bunny.png'
 
 groups:
   - ground
@@ -16,3 +19,18 @@ prefabs:
       size:
         x: 50
         y: 50
+  bunny:
+    type: 'rabbit'
+    options:
+      key: 'bunny'
+      group: 'rabbits'
+      position:
+        relative: false
+        x: 72
+        y: 24
+      anchor:
+        x: 0.5
+        y: 0.5
+      scale:
+        x: 1.5
+        y: 1.5

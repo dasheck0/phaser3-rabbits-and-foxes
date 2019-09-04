@@ -4,9 +4,9 @@ import config from './assets/config';
 import { MainScene } from "./scenes/main";
 
 const game = new Phaser.Game({
-  width: config.width,
-  height: config.height,
-  backgroundColor: config.backgroundColor || '#000',
+  width: config.window.width,
+  height: config.window.height,
+  backgroundColor: config.window.backgroundColor || '#000',
   scale: {
     mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH
@@ -18,5 +18,6 @@ const game = new Phaser.Game({
 
 game.scene.start('main', {
   configFile: 'assets/states/main.yml',
-  profileFile: `assets/config/profiles/${config.profile || 'default'}.yml`
+  profileFile: `assets/config/profiles/${config.profile || 'default'}.yml`,
+  globals: config
 });

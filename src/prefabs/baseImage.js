@@ -1,10 +1,13 @@
 import 'phaser';
 
 export default class extends Phaser.GameObjects.Image {
-  constructor(name, scene, options) {
+  constructor(name, scene, options, profile, globals) {
     super(scene, options.position.x, options.position.y);
 
     this.name = name;
+    this.profile = profile;
+    this.globals = globals;
+
     this.setTexture(options.key);
 
     if (options.position.relative) {

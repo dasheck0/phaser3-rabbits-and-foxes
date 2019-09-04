@@ -8,7 +8,12 @@ export class MainScene extends BaseScene {
   create() {
     super.create();
 
-    this.cameras.main.setBounds(0, 0, 50 * 48, 50 * 48);
+    this.cameras.main.setBounds(
+      0,
+      0,
+      this.globals.grid.rowCount * this.globals.grid.size,
+      this.globals.grid.columnCount * this.globals.grid.size
+    );
 
     const cursors = this.input.keyboard.createCursorKeys();
 
@@ -25,19 +30,21 @@ export class MainScene extends BaseScene {
       maxSpeed: 0.5
     });
 
-    console.log(this.prefabs['ground'].getCell(1,2));
+    // var timer = this.time.addEvent({
+    //   delay: 1000,                // ms
+    //   callback: () => {console.log("go");
+    //     this.prefabs['ground'].update()
+    //   },
+    //   callbackScope: this,
+    //   repeat: 4000
+    // });
 
-    var timer = this.time.addEvent({
-      delay: 1000,                // ms
-      callback: () => {console.log("go");
-        this.prefabs['ground'].update()
-      },
-      callbackScope: this,
-      repeat: 4000
-    });
   }
 
-  update(delta) {
-    this.controls.update(delta);
+  update(time, delta) {
+    super.update(time, delta);
+    this.controls.update(time);
+
+    this.prefabs.bunny.update(time, delta);
   }
 }

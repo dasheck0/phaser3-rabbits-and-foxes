@@ -7,6 +7,8 @@ export default class BaseScene extends Phaser.Scene {
   }
 
   init(options) {
+    this.globals = options.globals;
+
     if (!options.configFile) {
       throw new Error('There is no configFile for the scene');
     }
@@ -45,7 +47,7 @@ export default class BaseScene extends Phaser.Scene {
 
     Object.keys(this.config.prefabs).forEach((key) => {
       const value = this.config.prefabs[key];
-      this.prefabs[key] = new (prefabs[value.type])(key, this, value.options, this.profile);
+      this.prefabs[key] = new (prefabs[value.type])(key, this, value.options, this.profile, this.globals);
     });
   }
 }

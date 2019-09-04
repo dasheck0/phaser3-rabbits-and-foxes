@@ -4,15 +4,15 @@
  */
 
 import 'phaser';
-import YAML from 'yamljs';
 import { times, random } from 'lodash';
 
 export default class Ground {
-  constructor(name, scene, options, profile) {
+  constructor(name, scene, options, profile, globals) {
     this.name = name;
     this.scene = scene;
     this.options = options;
     this.profile = profile;
+    this.globals = globals;
 
     const x = (options.size || {}).x || 5;
     const y = (options.size || {}).y || 5;
@@ -22,7 +22,11 @@ export default class Ground {
 
     times(random(15, 20), () => Ground.placeWaterPits(this.data, lakes, 3));
 
-    this.map = this.scene.make.tilemap({ data: this.data, tileWidth: 48, tileHeight: 48 });
+    this.map = this.scene.make.tilemap({
+      data: this.data,
+      tileWidth: globals.grid.size,
+      tileHeight: globals.grid.size
+    });
     const tiles = this.map.addTilesetImage('tilemap');
     const layer = this.map.createStaticLayer(0, tiles, 0, 0);
   }
@@ -45,6 +49,13 @@ export default class Ground {
     };
   }
 
+  removeGrass(x, y) {
+    if (x >= 0 && y >= 0 && x < this.options.size.x && y < this.options.size.y) {
+      this.data[y][x] = 2;
+      this.redraw();
+    }
+  }
+
   update() {
     this.data.forEach((row, y) => {
       row.forEach((cell, x) => {
@@ -56,12 +67,20 @@ export default class Ground {
       });
     });
 
-    this.map = this.scene.make.tilemap({ data: this.data, tileWidth: 48, tileHeight: 48 });
-    const tiles = this.map.addTilesetImage('tilemap');
-    const layer = this.map.createStaticLayer(0, tiles, 0, 0);
+    this.redraw();
   }
 
   /* private */
+
+  redraw() {
+    this.map = this.scene.make.tilemap({
+      data: this.data,
+      tileWidth: this.globals.grid.size,
+      tileHeight: this.globals.grid.size
+    });
+    const tiles = this.map.addTilesetImage('tilemap');
+    const layer = this.map.createStaticLayer(0, tiles, 0, 0);
+  }
 
   static getGroundMapTiles() {
     const percent = random(0, 1, true);

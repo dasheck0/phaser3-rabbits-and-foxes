@@ -1,4 +1,9 @@
-width: 1024
-height: 768
-backgroundColor: 80a1cb
 profile: default
+window:
+  width: 1024
+  height: 768
+  backgroundColor: 80a1cb
+grid:
+  rowCount: 50
+  columnCount: 50
+  size: 48

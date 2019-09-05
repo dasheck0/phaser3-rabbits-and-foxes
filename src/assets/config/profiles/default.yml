@@ -1,7 +1,8 @@
 grass:
-  growRate: 0.01
+  growRate: 0.25
 
 rabbit:
+  sightRadius: 3
   hunger:
     gainPerHour: 0.1
     limit: 1

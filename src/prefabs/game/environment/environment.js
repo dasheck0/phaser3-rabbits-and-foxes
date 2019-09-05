@@ -50,15 +50,13 @@ export default class Ground extends Storable {
   removeGrass(x, y) {
     if (x >= 0 && y >= 0 && x < this.options.size.x && y < this.options.size.y) {
       this.data[y][x] = 2;
-      const tile = this.map.getTileAt(x, y);
       this.map.putTileAt(2, x, y);
     }
   }
 
   addGrass(x, y) {
     if (x >= 0 && y >= 0 && x < this.options.size.x && y < this.options.size.y) {
-      this.data[y][x] = 2;
-      const tile = this.map.getTileAt(x, y);
+      this.data[y][x] = 1;
       this.map.putTileAt(1, x, y);
     }
   }

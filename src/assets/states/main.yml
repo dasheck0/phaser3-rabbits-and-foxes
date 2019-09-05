@@ -32,7 +32,7 @@ prefabs:
       pool: 'rabbits'
       interval: 50
       mode: 'limited'
-      limit: 500
+      limit: 100
   flowerFactory:
     type: 'flowerFactory'
     options:

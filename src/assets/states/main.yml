@@ -30,13 +30,13 @@ prefabs:
     options:
       group: 'factories'
       pool: 'rabbits'
-      interval: 50
-      mode: 'limited'
-      limit: 1
+      mode: 'singleShot'
+      amount: 100
   flowerFactory:
     type: 'flowerFactory'
     options:
       group: 'factories'
       pool: 'ground'
-      interval: 250
+      interval: 50
       mode: 'infinite'
+      amount: 20

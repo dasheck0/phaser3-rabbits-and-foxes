@@ -10,7 +10,7 @@ import BaseFactory from '../../base/baseFactory';
 export default class extends BaseFactory {
   constructor(name, scene, options, profile, globals) {
     super(name, scene, options, profile, globals);
-    this.repeat = 3;
+    this.repeat = 5;
   }
 
   spawnPosition() {

@@ -1,5 +1,5 @@
 grass:
-  growRate: 0.25
+  growRate: 1
   repletion: 0.5
 
 water:
@@ -12,11 +12,15 @@ water:
 
 rabbit:
   sightRadius: 3
+  age:
+    coefficient: 1.25
+    min: 20
+    max: 40
   hunger:
-    gain: 0.1
+    gain: 0.001
     limit: 1
   thirst:
-    gain: 0.1
+    gain: 0.01
     limit: 1
 
 fox:

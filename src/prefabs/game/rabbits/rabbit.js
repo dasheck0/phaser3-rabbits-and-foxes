@@ -30,21 +30,49 @@ export default class Rabbit extends BaseSprite {
       .map(word => capitalize(word))
       .join(' ');
 
+    this.age = 0;
     this.hunger = 0;
-    this.thirst = 0;
+    this.thirst = 0.3;
     this.isDead = false;
   }
 
   update(time) {
+    this.graphics.clear();
+    this.updateAge();
     this.updateHunger();
 
     if (!this.isDead) {
       this.planMove();
 
-      console.log("Curretn hunger", this.hunger);
-
       if (this.debug) {
-        this.graphics.clear();
+        if (this.hunger > 0) {
+          const hungerRect = new Phaser.Geom.Rectangle(
+            this.x - this.globals.grid.size * this.originX,
+            this.y - this.globals.grid.size * this.originY,
+            this.globals.grid.size * this.hunger,
+            4
+          );
+
+          this.graphics.lineStyle(1, 0x000000, 1.0);
+          this.graphics.fillStyle(0xff0000, 0.5);
+          this.graphics.strokeRectShape(hungerRect);
+          this.graphics.fillRectShape(hungerRect);
+        }
+
+        if (this.thirst > 0) {
+          const thirstRect = new Phaser.Geom.Rectangle(
+            this.x - this.globals.grid.size * this.originX,
+            this.y - this.globals.grid.size * this.originY - 4,
+            this.globals.grid.size * this.thirst,
+            4
+          );
+
+          this.graphics.lineStyle(1, 0x000000, 1.0);
+          this.graphics.fillStyle(0x0000ff, 0.5);
+          this.graphics.strokeRectShape(thirstRect);
+          this.graphics.fillRectShape(thirstRect);
+        }
+
         this.graphics.lineStyle(2, 0x000000, 1.0);
         this.graphics.fillStyle(0xff0000, 0.5);
 
@@ -70,17 +98,34 @@ export default class Rabbit extends BaseSprite {
     }
   }
 
+  updateAge() {
+    if (!this.isDead) {
+      this.age += 1;
+      const ageLimit = ((1 - (1 / (1 - Math.pow(this.profile.rabbit.age.coefficient, this.profile.rabbit.age.min)))) / Math.pow(this.profile.rabbit.age.coefficient, this.profile.rabbit.age.max))
+        * Math.pow(this.profile.rabbit.age.coefficient, this.age) + 1 / (1 - Math.pow(this.profile.rabbit.age.coefficient, this.profile.rabbit.age.min));
+
+      this.isDead = random(0, 1, true) <= ageLimit;
+      this.tryKill();
+    }
+  }
+
   updateHunger() {
-    this.hunger += this.profile.rabbit.hunger.gain;
-    this.isDead = this.hunger >= 1;
-    if (this.isDead) {
-      this.scene.groups[this.options.group].kill(this);
-      this.destroy();
+    if (!this.isDead) {
+      this.hunger += this.profile.rabbit.hunger.gain;
+      this.isDead = this.hunger >= 1;
+      this.tryKill();
     }
   }
 
   enableDebug(enable) {
     this.debug = enable;
+  }
+
+  tryKill() {
+    if (this.isDead) {
+      this.scene.groups[this.options.group].kill(this);
+      this.destroy();
+    }
   }
 
   /* private */

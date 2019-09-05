@@ -40,18 +40,8 @@ export default class {
       loop: this.mode !== 'once',
       callback: () => {
         if (this.isAllowed()) {
-          const position = {
-            x: random(0, this.globals.grid.rowCount),
-            y: random(0, this.globals.grid.columnCount)
-          };
-          let object = this.pool.getFirstDead();
-
-          if (object) {
-            object.reset(position.x, position.y);
-          } else {
-            const name = `object_${this.pool.countActive()}`;
-            object = this.spawn(name, position);
-          }
+          const name = `object_${this.pool.countActive()}`;
+          this.spawn(name);
         }
       },
       callbackScope: this

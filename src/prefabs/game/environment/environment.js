@@ -29,7 +29,7 @@ export default class Ground extends Storable {
     const layer = this.map.createDynamicLayer(0, tiles, 0, 0);
   }
 
-  getCell(x, y) {
+  getCell(x, y, calculateWateringPlace = false) {
     if (x < 0 || y < 0 || x >= this.options.size.x || y >= this.options.size.y) {
       return null;
     }
@@ -37,13 +37,15 @@ export default class Ground extends Storable {
     const isLand = [1, 2].indexOf(this.data[y][x]) >= 0;
     const isWater = !isLand;
     const hasGrass = this.data[y][x] === 1;
+    const hasWateringPlace = calculateWateringPlace ? this.getNeighbours(x, y).some(cell => cell.isWater) || false : false;
 
     return {
       x,
       y,
       isLand,
       isWater,
-      hasGrass
+      hasGrass,
+      hasWateringPlace
     };
   }
 
@@ -77,6 +79,11 @@ export default class Ground extends Storable {
   }
 
   /* private */
+
+  getNeighbours(x, y) {
+    return [this.getCell(x - 1, y), this.getCell(x + 1, y), this.getCell(x, y - 1), this.getCell(x, y + 1)]
+      .filter(cell => cell !== null);
+  }
 
   static getGroundMapTiles() {
     const percent = random(0, 1, true);

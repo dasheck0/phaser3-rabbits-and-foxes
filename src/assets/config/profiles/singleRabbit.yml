@@ -15,13 +15,13 @@ rabbit:
   sightRadius: 3
   age:
     coefficient: 1.25
-    min: 20
-    max: 40
+    min: 200
+    max: 400
   hunger:
-    gain: 0.001
+    gain: 0.1
     limit: 1
   thirst:
-    gain: 0.01
+    gain: 0.05
     limit: 1
 
 fox:

@@ -14,7 +14,7 @@ export default class Rabbit extends BaseSprite {
 
     this.ground = scene.prefabs['ground'];
 
-    this.debug = false;
+    this.debug = globals.debug;
     this.graphics = this.scene.add.graphics();
 
     this.radius = profile.rabbit.sightRadius;
@@ -34,12 +34,20 @@ export default class Rabbit extends BaseSprite {
     this.hunger = 0;
     this.thirst = 0.3;
     this.isDead = false;
+    this.priority = 'hunger';
+    this.sex = random(0, 1, true) <= 0.5; // true men, false, woman
+
+    if (this.sex) {
+      this.setTint(0xccccff);
+    }
   }
 
   update(time) {
     this.graphics.clear();
     this.updateAge();
     this.updateHunger();
+    this.updateThirst();
+    this.updatePriority();
 
     if (!this.isDead) {
       this.planMove();
@@ -117,6 +125,24 @@ export default class Rabbit extends BaseSprite {
     }
   }
 
+  updateThirst() {
+    if (!this.isDead) {
+      this.thirst += this.profile.rabbit.thirst.gain;
+      this.isDead = this.thirst >= 1;
+      this.tryKill();
+    }
+  }
+
+  updatePriority() {
+    if (this.thirst >= this.hunger) {
+      this.priority = 'thirst';
+    } else {
+      this.priority = 'hunger'
+    }
+
+    console.log("kfd", this.priority);
+  }
+
   enableDebug(enable) {
     this.debug = enable;
   }
@@ -141,12 +167,22 @@ export default class Rabbit extends BaseSprite {
     }
 
     if (!this.target) {
-      let foundNearestFlower = false;
+      let foundTarget = false;
       this.sigthPoints.forEach((sightPoint) => {
-        if (!foundNearestFlower) {
-          const cell = this.scene.prefabs.ground.getCell(gridPosition.x + sightPoint.x, gridPosition.y + sightPoint.y);
-          if (cell && cell.hasGrass) {
-            foundNearestFlower = true;
+        if (!foundTarget) {
+          const cell = this.scene.prefabs.ground.getCell(gridPosition.x + sightPoint.x, gridPosition.y + sightPoint.y, true);
+
+          let condition;
+
+
+          if (this.priority === 'hunger') {
+            condition = cell && cell.hasGrass;
+          } else if (this.priority === 'thirst') {
+            condition = cell && cell.hasWateringPlace;
+          }
+
+          if (condition) {
+            foundTarget = true;
             this.target = {
               x: gridPosition.x + sightPoint.x,
               y: gridPosition.y + sightPoint.y
@@ -191,12 +227,16 @@ export default class Rabbit extends BaseSprite {
 
     const newGridPosition = this.positionToGridPosition(newPosition);
 
-    const cell = this.ground.getCell(newGridPosition.x, newGridPosition.y);
+    const cell = this.ground.getCell(newGridPosition.x, newGridPosition.y, true);
     if (cell && cell.isLand) {
       this.setPosition(newPosition.x, newPosition.y);
       if (cell.hasGrass) {
         this.ground.removeGrass(newGridPosition.x, newGridPosition.y);
         this.hunger = Math.max(this.hunger - this.profile.grass.repletion, 0);
+      }
+
+      if (cell.hasWateringPlace) {
+        this.thirst = Math.max(this.thirst - this.profile.water.repletion, 0);
       }
     }
 

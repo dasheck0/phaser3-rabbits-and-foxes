@@ -5,7 +5,7 @@
 
 import { random } from 'lodash';
 
-import BaseFactory from './baseFactory';
+import BaseFactory from '../../base/baseFactory';
 import Rabbit from './rabbit';
 
 export default class extends BaseFactory {

@@ -1,9 +1,11 @@
-import baseImage from './baseImage';
-import baseSprite from './baseSprite';
-import baseFactory from './baseFactory';
-import groundPrefab from './groundPrefab';
-import rabbit from './rabbit'
-import rabbitFactory from './rabbitFactory'
+import baseImage from './base/baseImage';
+import baseSprite from './base/baseSprite';
+import baseFactory from './base/baseFactory';
+import groundPrefab from './game/environment/environment';
+import rabbit from './game/rabbits/rabbit'
+import rabbitFactory from './game/rabbits/rabbitFactory'
+import panel from './ui/panel';
+import storable from './base/storable';
 
 export {
   baseImage,
@@ -11,5 +13,7 @@ export {
   baseFactory,
   groundPrefab,
   rabbit,
-  rabbitFactory
+  rabbitFactory,
+  panel,
+  storable
 };

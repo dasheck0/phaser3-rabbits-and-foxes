@@ -28,6 +28,14 @@ export default class BaseScene extends Phaser.Scene {
       if (value.type === 'image') {
         this.load.image(key, value.src);
       }
+
+      if(value.type === 'scenePlugin') {
+        this.load.scenePlugin({
+          key: key,
+          url: value.url,
+          sceneKey: value.sceneKey
+        });
+      }
     });
   }
 
@@ -49,5 +57,7 @@ export default class BaseScene extends Phaser.Scene {
       const value = this.config.prefabs[key];
       this.prefabs[key] = new (prefabs[value.type])(key, this, value.options, this.profile, this.globals);
     });
+
+
   }
 }

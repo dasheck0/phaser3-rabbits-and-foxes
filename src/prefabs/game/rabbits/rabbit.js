@@ -3,14 +3,24 @@
  * Copyright © 2019 appcom interactive GmbH. All rights reserved.
  */
 
-import { random } from 'lodash'
-import BaseSprite from './baseSprite'
+import { random, capitalize } from 'lodash'
+import { uniqueNamesGenerator, UniqueNamesGeneratorConfig } from 'unique-names-generator';
+
+import BaseSprite from '../../base/baseSprite'
 
 export default class extends BaseSprite {
   constructor(name, scene, options, profile, globals) {
     super(name, scene, options, profile, globals);
 
     this.ground = scene.prefabs['ground'];
+
+    this.rabbitName = uniqueNamesGenerator({
+      separator: '-',
+      length: 3.
+    })
+      .split('-')
+      .map(word => capitalize(word))
+      .join(' ');
   }
 
   update(time) {

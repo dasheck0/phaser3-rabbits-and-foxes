@@ -6,13 +6,11 @@
 import 'phaser';
 import { times, random } from 'lodash';
 
-export default class Ground {
+import Storable from '../../base/storable';
+
+export default class Ground extends Storable{
   constructor(name, scene, options, profile, globals) {
-    this.name = name;
-    this.scene = scene;
-    this.options = options;
-    this.profile = profile;
-    this.globals = globals;
+    super(name, scene, options, profile, globals);
 
     const x = (options.size || {}).x || 5;
     const y = (options.size || {}).y || 5;

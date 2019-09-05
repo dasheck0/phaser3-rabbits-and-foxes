@@ -1,4 +1,8 @@
 assets:
+  rexuiplugin:
+    type: 'scenePlugin'
+    url: 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/plugins/dist/rexuiplugin.min.js'
+    sceneKey: 'ui'
   tilemap:
     type: 'image'
     src: 'assets/images/tilesheet.png'
@@ -11,8 +15,11 @@ groups:
   - grass
   - rabbits
   - foxes
+  - ui
 
 prefabs:
+  panel:
+    type: 'panel'
   ground:
     type: 'groundPrefab'
     options:

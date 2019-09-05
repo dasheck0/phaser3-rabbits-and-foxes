@@ -1,16 +1,13 @@
 import 'phaser';
-import { random } from 'lodash';
 
-export default class {
+import Storable from './storable';
+
+export default class extends Storable{
   constructor(name, scene, options, profile, globals) {
-    this.name = name;
-    this.scene = scene;
-    this.options = options;
-    this.profile = profile;
-    this.globals = globals;
-    this.time = scene.time;
+    super(name, scene, options, profile, globals);
 
-    this.pool = this.scene.groups[options.pool];
+    this.time = scene.time;
+    this.pool = scene.groups[options.pool];
     this.interval = options.interval || 1000;
     this.mode = options.mode || 'infinite';
     this.limit = options.limit || -1;

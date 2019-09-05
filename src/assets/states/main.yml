@@ -11,6 +11,7 @@ assets:
     src: 'assets/images/bunny.png'
 
 groups:
+  - factories
   - ground
   - grass
   - rabbits
@@ -18,8 +19,6 @@ groups:
   - ui
 
 prefabs:
-  panel:
-    type: 'panel'
   ground:
     type: 'groundPrefab'
     options:
@@ -29,7 +28,15 @@ prefabs:
   rabbitFactory:
     type: 'rabbitFactory'
     options:
+      group: 'factories'
       pool: 'rabbits'
       interval: 50
       mode: 'limited'
       limit: 500
+  flowerFactory:
+    type: 'flowerFactory'
+    options:
+      group: 'factories'
+      pool: 'ground'
+      interval: 250
+      mode: 'infinite'

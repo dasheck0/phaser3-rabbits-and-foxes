@@ -3,24 +3,43 @@
  * Copyright © 2019 appcom interactive GmbH. All rights reserved.
  */
 
-export default class {
-  constructor(name, scene, options, profile, globals) {
+import Storable from '../base/storable';
 
+export default class extends Storable {
+  constructor(name, scene, options, profile, globals) {
+    super(name, scene, options, profile, globals);
+    this.create();
   }
 
-  // create() {
-  //   scene.rexUI.add.label({
-  //     width: 50,
-  //     height:40,
-  //     background: scene.rexUI.add.roundRectangle(0, 0, 50, 50, radius, COLOR_DARK),
-  //     text: scene.add.text(0, 0, text, {
-  //       fontSize: '18pt'
-  //     }),
-  //     space: {
-  //       left: 10
-  //     }
-  //   });
-  // }
+  create() {
+    const label = this.scene.ui.add.label({
+      width: 50,
+      height: 40,
+      background: this.scene.ui.add.roundRectangle(10, 10, 50, 50, 100, '#f00'),
+      text: this.scene.add.text(0, 0, "Hello world", {
+        fontSize: '18pt'
+      }),
+      space: {
+        left: 10
+      },
+      x: 0,
+      y: 0,
+      name: 'test',
+      draggable: true,
+    });
+
+    this.scene.ui.add.sizer(400, 300, {
+      orientation: 1
+    })
+      .add(
+        label, // Game object
+        0, // Proportion
+        'center', // Align
+        20, // Padding
+        true // Expand
+      )
+      .layout()
+  }
 }
 
 

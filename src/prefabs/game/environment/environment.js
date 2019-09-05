@@ -18,7 +18,7 @@ export default class Ground extends Storable {
     const lakes = [];
     this.data = times(x, () => times(y, () => Ground.getGroundMapTiles()));
 
-    times(random(15, 20), () => Ground.placeWaterPits(this.data, lakes, 3));
+    times(random(profile.water.count.min, profile.water.count.max), () => this.placeWaterPits(this.data, lakes, 3));
 
     this.map = this.scene.make.tilemap({
       data: this.data,
@@ -94,12 +94,12 @@ export default class Ground extends Storable {
     return false;
   };
 
-  static placeWaterPits(data, lakes, repeat = 0) {
+  placeWaterPits(data, lakes, repeat = 0) {
     if (repeat >= 0) {
       const centerX = random(0, data.length);
       const centerY = random(0, data[0].length);
-      const radiusX = random(2, 5);
-      const radiusY = random(2, 5);
+      const radiusX = random(this.profile.water.radius.min, this.profile.water.radius.max);
+      const radiusY = random(this.profile.water.radius.min, this.profile.water.radius.max);
 
       const someIntersect = lakes.some((lake) => {
         return Ground.intersect(
@@ -111,7 +111,7 @@ export default class Ground extends Storable {
       });
 
       if (someIntersect) {
-        Ground.placeWaterPits(data, lakes, repeat - 1);
+        this.placeWaterPits(data, lakes, repeat - 1);
       } else {
         lakes.push({
           tl: [centerX - radiusX, centerY - radiusY],

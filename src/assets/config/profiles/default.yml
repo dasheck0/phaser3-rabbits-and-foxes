@@ -1,13 +1,22 @@
 grass:
   growRate: 0.25
+  repletion: 0.5
+
+water:
+  count:
+    min: 35
+    max: 40
+  radius:
+    min: 2
+    max: 3
 
 rabbit:
   sightRadius: 3
   hunger:
-    gainPerHour: 0.1
+    gain: 0.1
     limit: 1
   thirst:
-    gainPerHour: 0.1
+    gain: 0.1
     limit: 1
 
 fox:

@@ -29,36 +29,53 @@ export default class Rabbit extends BaseSprite {
       .split('-')
       .map(word => capitalize(word))
       .join(' ');
+
+    this.hunger = 0;
+    this.thirst = 0;
+    this.isDead = false;
   }
 
   update(time) {
-    this.planMove();
+    this.updateHunger();
 
-    if (this.debug) {
-      this.graphics.clear();
-      this.graphics.lineStyle(2, 0x000000, 1.0);
-      this.graphics.fillStyle(0xff0000, 0.5);
+    if (!this.isDead) {
+      this.planMove();
 
-      const gridPosition = this.positionToGridPosition();
-      let foundNearestFlower = false;
-      this.sigthPoints.forEach((sightPoint) => {
-        const rect = new Phaser.Geom.Rectangle(
-          this.x + sightPoint.x * this.globals.grid.size - this.globals.grid.size * this.originX,
-          this.y + sightPoint.y * this.globals.grid.size - this.globals.grid.size * this.originY,
-          this.globals.grid.size,
-          this.globals.grid.size
-        );
+      console.log("Curretn hunger", this.hunger);
 
-        this.graphics.strokeRectShape(rect);
+      if (this.debug) {
+        this.graphics.clear();
+        this.graphics.lineStyle(2, 0x000000, 1.0);
+        this.graphics.fillStyle(0xff0000, 0.5);
 
-        if (this.target) {
-          this.graphics.fillRect(
-            this.target.x * this.globals.grid.size,
-            this.target.y * this.globals.grid.size,
-            rect.width,
-            rect.height);
-        }
-      });
+        this.sigthPoints.forEach((sightPoint) => {
+          const rect = new Phaser.Geom.Rectangle(
+            this.x + sightPoint.x * this.globals.grid.size - this.globals.grid.size * this.originX,
+            this.y + sightPoint.y * this.globals.grid.size - this.globals.grid.size * this.originY,
+            this.globals.grid.size,
+            this.globals.grid.size
+          );
+
+          this.graphics.strokeRectShape(rect);
+
+          if (this.target) {
+            this.graphics.fillRect(
+              this.target.x * this.globals.grid.size,
+              this.target.y * this.globals.grid.size,
+              rect.width,
+              rect.height);
+          }
+        });
+      }
+    }
+  }
+
+  updateHunger() {
+    this.hunger += this.profile.rabbit.hunger.gain;
+    this.isDead = this.hunger >= 1;
+    if (this.isDead) {
+      this.scene.groups[this.options.group].kill(this);
+      this.destroy();
     }
   }
 
@@ -134,6 +151,7 @@ export default class Rabbit extends BaseSprite {
       this.setPosition(newPosition.x, newPosition.y);
       if (cell.hasGrass) {
         this.ground.removeGrass(newGridPosition.x, newGridPosition.y);
+        this.hunger = Math.max(this.hunger - this.profile.grass.repletion, 0);
       }
     }
 

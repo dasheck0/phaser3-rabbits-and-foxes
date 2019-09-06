@@ -2,8 +2,8 @@ import 'phaser';
 
 import config from './assets/config';
 
-import { MainScene } from "./scenes/main";
-import { UIScene } from "./scenes/ui";
+import MainScene from "./scenes/main";
+import UIScene from "./scenes/ui";
 
 const game = new Phaser.Game({
   width: config.window.width,

@@ -3,15 +3,18 @@ assets:
     type: 'scenePlugin'
     url: 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/plugins/dist/rexuiplugin.min.js'
     sceneKey: 'ui'
+  rabbit:
+    type: 'image'
+    src: 'assets/images/bunny.png'
 
 groups:
   - ui
 
 prefabs:
-  panel:
-    type: 'panel'
+  rabbitPanel:
+    type: 'rabbitPanel'
     options:
-      width: 200,
+      width: 250,
       height: 400
       margin:
         x: 32

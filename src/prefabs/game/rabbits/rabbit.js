@@ -36,9 +36,26 @@ export default class Rabbit extends BaseSprite {
     this.isDead = false;
     this.priority = 'hunger';
     this.sex = random(0, 1, true) <= 0.5; // true men, false, woman
+    this.highlight = false;
 
     if (this.sex) {
       this.setTint(0xccccff);
+    }
+
+    this.setInteractive().on('pointerdown', function (pointer, localX, localY, event) {
+      this.scene.getScene('ui').prefabs.rabbitPanel.setRabbit(this, true);
+      this.scene.groups.rabbits.getChildren().forEach(child => child.setHighlight(false));
+      this.highlight = true;
+    });
+  }
+
+  setHighlight(highlight) {
+    this.highlight = highlight;
+  }
+
+  updateUI() {
+    if (this.highlight) {
+      this.scene.getScene('ui').prefabs.rabbitPanel.setRabbit(this, false);
     }
   }
 
@@ -103,6 +120,8 @@ export default class Rabbit extends BaseSprite {
           }
         });
       }
+
+      this.updateUI();
     }
   }
 

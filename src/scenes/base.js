@@ -63,11 +63,25 @@ export default class BaseScene extends Phaser.Scene {
 
     Object.keys(this.config.scenes || []).forEach((key) => {
       const name = this.config.scenes[key];
+      const scene = this.scene.get(key);
       this.scene.launch(name, {
         configFile: `assets/states/${name}.yml`,
         profileFile: this.profileFile,
         globals: this.globals
       });
+
+      this.scenes[name] = scene;
     });
+  }
+
+  getScene(name) {
+    if (this.scenes[name]) {
+      return this.scenes[name];
+    }
+
+    const scene = this.scene.get(name);
+    this.scenes[name] = scene;
+
+    return scene;
   }
 }

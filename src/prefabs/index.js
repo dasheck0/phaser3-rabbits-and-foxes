@@ -9,6 +9,7 @@ import rabbitFactory from './game/rabbits/rabbitFactory'
 import flowerFactory from './game/environment/flowerFactory';
 
 import panel from './ui/panel';
+import rabbitPanel from './ui/rabbitPanel';
 
 export {
   baseImage,
@@ -20,4 +21,5 @@ export {
   rabbitFactory,
   flowerFactory,
   panel,
+  rabbitPanel,
 };

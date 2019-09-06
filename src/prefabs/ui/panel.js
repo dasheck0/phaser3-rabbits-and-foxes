@@ -5,6 +5,9 @@
 
 import Storable from '../base/storable';
 
+import TextCell from './panelCells/textCell';
+import IconTextCell from './panelCells/iconTextCell';
+
 export default class extends Storable {
   constructor(name, scene, options, profile, globals) {
     super(name, scene, options, profile, globals);
@@ -50,50 +53,23 @@ export default class extends Storable {
     this.gridTable = this.scene.ui.add.gridTable({
       x: this.anchor.x === 'end' ? this.globals.window.width + this.width / 2 + this.margin.x : -this.width / 2 - this.margin.x,
       y: this.startY,
-      items: [{
-        id: 0,
-        color: 0xff0000
-      }, {
-        id: 1,
-        color: 0xffff00
-      }],
-      background: this.scene.ui.add.roundRectangle(0, 0, 20, 10, 10, 0xeeeeee),
+      items: [
+        // new TextCell('Hello World', TextCell.defaultStyle({ fontSize: '18px', padding: 8 })),
+        // new IconTextCell('HAAASE', 'rabbit',  TextCell.defaultStyle({  fontSize: '18px', padding: 8})),
+      ],
+      background: this.scene.ui.add.roundRectangle(0, 0, 20, 10, 5, 0xeeeeee),
       table: {
         width: this.width,
         height: this.height,
         cellWidth: 240,
-        cellHeight: 60,
+        cellHeight: 32,
         columns: 1,
         interactive: false,
         mask: {
           padding: 2,
         },
       },
-      slider: {
-        track: this.scene.ui.add.roundRectangle(0, 0, 20, 10, 5, 0xd8d8d8),
-        thumb: this.scene.ui.add.roundRectangle(0, 0, 0, 0, 10, 0xc8c8c8),
-      },
-      scroller: true,
-      createCellContainerCallback: function (cell) {
-        var scene = cell.scene,
-          width = cell.width,
-          height = cell.height,
-          item = cell.item,
-          index = cell.index;
-        return scene.ui.add.label({
-          width: width,
-          height: height,
-
-          background: scene.ui.add.roundRectangle(0, 0, 20, 20, 0).setStrokeStyle(2, 0xd8d8d8),
-          icon: scene.ui.add.roundRectangle(0, 0, 20, 20, 10, item.color),
-          text: scene.add.text(0, 0, item.id),
-
-          space: {
-            icon: 10,
-            left: 15
-          }
-        });
-      },
+      createCellContainerCallback: cell => cell.item.onBind(cell.scene, cell.width, cell.height, cell.index),
     })
       .layout();
   }
@@ -143,7 +119,7 @@ export default class extends Storable {
   }
 
   setItems(items) {
-    this.gridTable.items = items;
-    this.gridTable.refresh();
+    this.gridTable.setItems(items);
+    console.log("srtggin item", items);
   }
 }

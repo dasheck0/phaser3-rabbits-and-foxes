@@ -1,6 +1,6 @@
 import BaseScene from './base';
 
-export class MainScene extends BaseScene {
+export default class MainScene extends BaseScene {
   constructor() {
     super('main');
   }

@@ -8,6 +8,7 @@ export default class BaseScene extends Phaser.Scene {
 
   init(options) {
     this.globals = options.globals;
+    this.profileFile = options.profileFile;
 
     if (!options.configFile) {
       throw new Error('There is no configFile for the scene');
@@ -29,7 +30,7 @@ export default class BaseScene extends Phaser.Scene {
         this.load.image(key, value.src);
       }
 
-      if(value.type === 'scenePlugin') {
+      if (value.type === 'scenePlugin') {
         this.load.scenePlugin({
           key: key,
           url: value.url,
@@ -58,6 +59,15 @@ export default class BaseScene extends Phaser.Scene {
       this.prefabs[key] = new (prefabs[value.type])(key, this, value.options, this.profile, this.globals);
     });
 
+    this.scenes = {};
 
+    Object.keys(this.config.scenes || []).forEach((key) => {
+      const name = this.config.scenes[key];
+      this.scene.launch(name, {
+        configFile: `assets/states/${name}.yml`,
+        profileFile: this.profileFile,
+        globals: this.globals
+      });
+    });
   }
 }

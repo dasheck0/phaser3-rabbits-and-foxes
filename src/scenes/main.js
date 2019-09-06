@@ -32,17 +32,6 @@ export class MainScene extends BaseScene {
       drag: 0.0005,
       maxSpeed: 0.5
     });
-
-    const w = this.input.keyboard.addKey('W');  // Get key object
-    w.on('down', function (event) {
-      this.scene.pause();
-    }, this);
-
-
-    const s = this.input.keyboard.addKey('S');  // Get key object
-    s.on('down', function (event) {
-      this.scene.resume();
-    }, this);
   }
 
   update(time, delta) {

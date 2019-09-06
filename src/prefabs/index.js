@@ -19,5 +19,5 @@ export {
   rabbit,
   rabbitFactory,
   flowerFactory,
-  panel
+  panel,
 };

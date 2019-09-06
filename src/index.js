@@ -1,7 +1,9 @@
 import 'phaser';
 
 import config from './assets/config';
+
 import { MainScene } from "./scenes/main";
+import { UIScene } from "./scenes/ui";
 
 const game = new Phaser.Game({
   width: config.window.width,
@@ -13,7 +15,7 @@ const game = new Phaser.Game({
   },
   autoRound: false,
   'render.transparent': true,
-  scene: [MainScene]
+  scene: [MainScene, UIScene]
 });
 
 game.scene.start('main', {

@@ -1,0 +1,21 @@
+assets:
+  rexuiplugin:
+    type: 'scenePlugin'
+    url: 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/plugins/dist/rexuiplugin.min.js'
+    sceneKey: 'ui'
+
+groups:
+  - ui
+
+prefabs:
+  panel:
+    type: 'panel'
+    options:
+      width: 200,
+      height: 400
+      margin:
+        x: 32
+        y: 32
+      anchor:
+        x: 'start'
+        y: 'start'

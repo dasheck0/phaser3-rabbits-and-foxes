@@ -139,8 +139,6 @@ export default class Rabbit extends BaseSprite {
     } else {
       this.priority = 'hunger'
     }
-
-    console.log("kfd", this.priority);
   }
 
   enableDebug(enable) {
@@ -209,8 +207,11 @@ export default class Rabbit extends BaseSprite {
         y: this.y + (nearestSightPoint.y - gridPosition.y) * this.globals.grid.size
       };
     } else {
-      const direction = random(0, 3);
+      const direction = random(0, 4);
       newPosition = [{
+        x: this.x,
+        y: this.y
+      }, {
         x: this.x - this.globals.grid.size,
         y: this.y
       }, {

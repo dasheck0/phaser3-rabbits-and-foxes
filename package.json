@@ -21,7 +21,7 @@
     "webpack-node-externals": "^1.7.2"
   },
   "dependencies": {
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "phaser": "^3.19.0",
     "unique-names-generator": "^3.0.0",
     "yamljs": "^0.3.0"
